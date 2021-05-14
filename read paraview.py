@@ -33,9 +33,12 @@ from csv import reader
 path = Directory
 ext = "*.csv"
 all_csv_file=[file for path,subdir, files in os.walk(Directory) for file in glob(os.path.join(path,ext))]
-Name=all_csv_file[FileNumber]
+Names=all_csv_file[FileNumber]
+Name=os.path.basename(Names)
 
-#print(a)
+
+#print(os.path.basename(Name))
+
 
 newlist =[]
 newlist2 =[]
@@ -43,7 +46,7 @@ newlist3 =[]
 
 #skip first line for example the header
 #this is exporting Point Location 
-with open(Name,'r') as read_obj:
+with open(Names,'r') as read_obj:
     csv_reader= reader(read_obj)
     Pts = next(csv_reader)
     #check file as empty 
@@ -55,7 +58,7 @@ with open(Name,'r') as read_obj:
                    #print(data1)
                    
 #this is exporting Vector Direction
-with open(Name,'r') as read_obj:
+with open(Names,'r') as read_obj:
     csv_reader= reader(read_obj)
     Vector = next(csv_reader)
     #check file as empty 
@@ -64,10 +67,10 @@ with open(Name,'r') as read_obj:
                    data2=(',').join([row[5],row[6],row[7]])
                    newlist2.append(data2)
                    Vector=newlist2
-                   print(data2)
+                   #print(data2)
                    
 #this is exporting Vector Mag
-with open(Name,'r') as read_obj:
+with open(Names,'r') as read_obj:
     csv_reader= reader(read_obj)
     VectorMag = next(csv_reader)
     #check file as empty 
