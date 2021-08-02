@@ -1,9 +1,16 @@
-"""Provides a scripting component.
+"""
+This component read csv file exported from paraview.
     Inputs:
-        x: The x script variable
-        y: The y script variable
+        Directoy: provide the directory where csv files are located
+        FileNumber: provide an integer to read files
     Output:
-        a: The a output variable"""
+        out: Error
+        Name: name for the current file 
+        Point: analysis point from paraview
+        Vector: vector for velocity if provided
+        Magnitude: Magnitude from cfd analsys
+        Pressure: pressure coeffiecient
+        """
 
 __author__ = "HiramRodriguez"
 __version__ = "2021.04.23"
@@ -33,32 +40,30 @@ from csv import reader
 path = Directory
 ext = "*.csv"
 all_csv_file=[file for path,subdir, files in os.walk(Directory) for file in glob(os.path.join(path,ext))]
-Names=all_csv_file[FileNumber]
-Name=os.path.basename(Names)
+Name=all_csv_file[FileNumber]
 
-
-#print(os.path.basename(Name))
-
+#print(a)
 
 newlist =[]
 newlist2 =[]
 newlist3 =[]
+newlist4 =[]
 
 #skip first line for example the header
 #this is exporting Point Location 
-with open(Names,'r') as read_obj:
+with open(Name,'r') as read_obj:
     csv_reader= reader(read_obj)
     Pts = next(csv_reader)
     #check file as empty 
     if Pts !=None:
         for row in csv_reader:
-                   data1=(',').join([row[2],row[3],row[4]])
+                   data1=(',').join([row[1],row[2],row[3]])
                    newlist.append(data1)
                    Point=newlist
                    #print(data1)
                    
 #this is exporting Vector Direction
-with open(Names,'r') as read_obj:
+with open(Name,'r') as read_obj:
     csv_reader= reader(read_obj)
     Vector = next(csv_reader)
     #check file as empty 
@@ -70,7 +75,7 @@ with open(Names,'r') as read_obj:
                    #print(data2)
                    
 #this is exporting Vector Mag
-with open(Names,'r') as read_obj:
+with open(Name,'r') as read_obj:
     csv_reader= reader(read_obj)
     VectorMag = next(csv_reader)
     #check file as empty 
@@ -80,6 +85,19 @@ with open(Names,'r') as read_obj:
                    newlist3.append(data3)
                    Magnitude=newlist3
                    #print(data3)
+        
+#this is exporting Vector Mag
+with open(Name,'r') as read_obj:
+    csv_reader= reader(read_obj)
+    VectorMag = next(csv_reader)
+    #check file as empty 
+    if VectorMag !=None:
+        for row in csv_reader:
+                   data4=(row[4])
+                   newlist4.append(data4)
+                   Pressure=newlist4
+                   #print(data3)
+
         
             
 
