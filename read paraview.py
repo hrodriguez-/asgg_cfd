@@ -57,6 +57,7 @@ with open(Name,'r') as read_obj:
     #check file as empty 
     if Pts !=None:
         for row in csv_reader:
+            #only get the point from the csv
                    data1=(',').join([row[1],row[2],row[3]])
                    newlist.append(data1)
                    Point=newlist
@@ -86,7 +87,7 @@ with open(Name,'r') as read_obj:
                    Magnitude=newlist3
                    #print(data3)
         
-#this is exporting Vector Mag
+#this is exporting Pressure Values
 with open(Name,'r') as read_obj:
     csv_reader= reader(read_obj)
     VectorMag = next(csv_reader)
